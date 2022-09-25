@@ -30,27 +30,37 @@ textarea{
   border-top-left-radius: 15%;
   margin-left: 1%;
   text-align: center;
+  background-color: #77dd77;
 
 
 }
+
 
 .time-block{
   width: 10%;
   text-align: center;
   border-radius: 25px;
   border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 20px;
+  line-height: 400%;
+
+  /* vertical-align: middle; */
 }
 
 .row {
   white-space: pre-wrap;
   height: 80px;
   border-top: 1px solid white;;
+  min-width: 600px;
+  margin-top: 5px;
 }
 
 .hour {
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  
+  
 }
 
 .past {
