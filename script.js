@@ -3,23 +3,23 @@ $(document).ready(function () {
 
   let row;
 
-  let pm = false
-  if(moment().format("a") == "pm"){
+  let pm = false;
+  if (moment().format("a") == "pm") {
     pm = true;
   }
 
-  let currentHour = parseInt(moment().format("h"))
+  let currentHour = parseInt(moment().format("h"));
 
-  if(pm){
-    currentHour+=12
+  if (pm) {
+    currentHour += 12;
   }
 
-
   for (let i = 1; i <= 24; i++) {
-    // let index = i.toString();
-    // console.log(typeof index);
+    
     row =
-      `<div  id="button` + i +`" class="row"><div class="time-block">` +
+      `<div  id="button` +
+      i +
+      `" class="row"><div class="time-block">` +
       i +
       `:00</div>
     <input type="text" class="description" placeholder = "Enter an activity" value = "" />
@@ -28,32 +28,42 @@ $(document).ready(function () {
     $(".container").append($(row));
 
     if (currentHour > i) {
-        // console.log($("#button" + i)[0].children[1]);
-        $("#button" + i).children("input").css({"background-color": "#d3d3d3"})
-        
+      $("#button" + i)
+        .children("input")
+        .css({ "background-color": "#d3d3d3" });
     }
     if (currentHour == i) {
-        $("#button" + i).children("input").css({"background-color": "red"})
-
+      $("#button" + i)
+        .children("input")
+        .css({ "background-color": "red" });
     }
+    //   Retrieve previous events from local storage
 
+    var storedEvent = JSON.parse(localStorage.getItem("button" + i));
+    if(storedEvent){
 
-    
+        console.log($("#button"+ i).children("input"));
+        $("#button"+ i).children("input").val(storedEvent)
+        $("#button"+ i).children("input").css({ "font-size": "24px", "text-align": "left" });
+    }
+    // console.log(storedEvent);
   }
   $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm a"));
 
+  //   ADD functionality to each button
 
+  $(".saveBtn").on("click", function (event) {
+    
+    $(event.target)
+      .parent()
+      .children("input")
+      .css({ "font-size": "24px", "text-align": "left" });
 
-  
+    // Save event in local storage
 
-//   $("#button1").css({"margin-top": "1000px"})
+    let note = $(event.target).parent().children("input")[0].value;
+    let slot = $(event.target).parent().attr("id");
 
-  //   console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
-//   console.log(moment().format("h"));
-
-  
-
-//   console.log($("#button1"));
-
-  //   $("#button1").css({"background-color": "red",'font-size': '150%' })
+    localStorage.setItem(slot, JSON.stringify(note));
+  });
 });
